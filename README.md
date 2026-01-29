@@ -1,0 +1,1 @@
+# Engenharia_Software_2025-2_crawl4ai_atividade3_parte1
