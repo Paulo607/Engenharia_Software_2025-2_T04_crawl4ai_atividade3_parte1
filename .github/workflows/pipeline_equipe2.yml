@@ -1,0 +1,29 @@
+name: Pipeline de Qualidade - Equipe 2
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias de analise
+        run: |
+          pip install flake8 mypy
+
+      - name: Executar Linter (flake8)
+        run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Executar Mypy (Tipagem)
+        run: mypy . --ignore-missing-imports
